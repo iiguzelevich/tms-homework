@@ -57,7 +57,6 @@ print(num.get_list_x())
 print(num.func_sum())
 print(num.func_factorial(randint(1, 10)))
 
-kol = num.get_list_arg_sort()
 axis_x = num.get_list_x()
 axis_y = num.get_list_y()
 plt.figure(figsize=(9, 5))
