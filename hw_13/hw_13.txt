@@ -1,0 +1,217 @@
+# Создание базы данных
+CREATE SCHEMA IF NOT EXISTS  `my_db_hw13`
+
+# Использование базы данный для работы
+USE `my_db_hw13`
+
+# Создал таблицу students
+# Указал типы данных строк
+# Указал индексы и ключ PRIMARY
+
+CREATE TABLE IF NOT EXISTS `students`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `lastname` VARCHAR(50) NOT NULL,
+    `student group` VARCHAR(50) NOT NULL,
+    `academic subject` VARCHAR(50) NOT NULL ,
+    PRIMARY KEY (`id`),
+    INDEX `index_group` (`student group`),
+    INDEX `index_subject` (`academic subject`)
+);
+
+# Создал таблицу classroom
+# Указал типы данных столбцов
+# Задал имя FOREIGN KEY
+# Создал FOREIGN KEY
+# Установил зависимость  между таблицами
+# Установил  действия, которые выполняются соответственно
+# при изменении и удалении связанной из главной таблицы.
+
+CREATE TABLE IF NOT EXISTS `classroom`(
+    `id`INT,
+    `classroom number` VARCHAR(50),
+    `floor` MEDIUMINT NOT NULL ,
+    `academic subject` VARCHAR(50) NOT NULL ,
+    `student group` VARCHAR(50) NOT NULL ,
+    CONSTRAINT `fk_student_group`
+    FOREIGN KEY (`student group`)
+    REFERENCES students(`student group`) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+# Создал таблицу teachers
+# Указал типы данных столбцов
+# Указал ключ PRIMARY
+# Задал имя FOREIGN KEY
+# Создал FOREIGN KEY
+# Установил зависимость  между таблицами
+# Установил  действия, которые выполняются соответственно
+# при изменении и удалении связанной из главной таблицы.
+
+CREATE TABLE IF NOT EXISTS `teachers`(
+    `id`INT NOT NULL ,
+    `name` VARCHAR(50) NOT NULL ,
+    `lastname` VARCHAR(50) NOT NULL ,
+    `academic subject` VARCHAR(50) NOT NULL ,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_subject`
+    FOREIGN KEY (`academic subject`)
+    REFERENCES students(`academic subject`) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+# Создал таблицу students on the course
+# Указал типы данных столбцов
+# Указал ключ PRIMARY
+# Задал имя FOREIGN KEY
+# Создал FOREIGN KEY
+# Установил зависимость  между таблицами
+# Установил  действия, которые выполняются соответственно
+# при изменении и удалении связанной из главной таблицы.
+
+CREATE TABLE IF NOT EXISTS `students on the course`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `lastname` VARCHAR(50) NOT NULL,
+    `student group` VARCHAR(50) NOT NULL,
+    `assessment` MEDIUMINT  NOT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_student_id`
+    FOREIGN KEY (`id`)
+    REFERENCES students(`id`) ON UPDATE CASCADE ON DELETE RESTRICT,
+
+    CONSTRAINT `fk_student_group_in_course`
+    FOREIGN KEY (`student group`)
+    REFERENCES `students`(`student group`) ON UPDATE CASCADE ON DELETE RESTRICT
+);
+
+
+# Добавил значения в таблицу students
+INSERT INTO `students` VALUES
+                            (1,'Dima','Orlov','1a','biology'),
+                            (2,'Karl','Mishkin','1a','biology'),
+                            (3,'Oswald','Spengler','1a','biology'),
+                            (4,'Ivan','Ivanov','1a','biology'),
+                            (5,'Petr','Petrov','1a','biology'),
+                            (6,'Zina','Sokolova','2b','chemistry'),
+                            (7,'Ira','Ivanova','2b','chemistry'),
+                            (8,'Anna','Nabokova','2b','chemistry'),
+                            (9,'Anna','Nabokova','3c','mathematics'),
+                            (10,'Natasha','Zhychkova','3c','mathematics'),
+                            (11,'Igor','Sidorov','3c','mathematics'),
+                            (12,'Ivan','Volkov','3c','mathematics');
+
+# Добавил значения в таблицу classroom
+INSERT INTO `classroom` VALUES
+                            (1,202,2,'biology','1a'),
+                            (2,302,3,'chemistry','2b'),
+                            (3,402,4,'mathematics','3c');
+
+# Добавил значения в таблицу students on the course
+INSERT INTO `students on the course` VALUES
+                            (1,'Dima','Orlov','1a',9),
+                            (2,'Karl','Mishkin','1a',9),
+                            (3,'Oswald','Spengler','1a',9),
+                            (4,'Ivan','Ivanov','1a',9),
+                            (5,'Petr','Petrov','1a',10),
+                            (6,'Zina','Sokolova','2b',9),
+                            (7,'Ira','Ivanova','2b',9),
+                            (8,'Anna','Nabokova','2b',8),
+                            (9,'Anna','Drozdova','3c',9),
+                            (10,'Natasha','Zhychkova','3c',10),
+                            (11,'Igor','Sidorov','3c',8),
+                            (12,'Ivan','Volkov','3c',8);
+
+# Добавил значения в таблицу teachers
+INSERT INTO `teachers` VALUES
+                            (1,'Dmitri','Mendeleev','chemistry'),
+                            (2,'Carl','Linnaeus','biology'),
+                            (3,'Carl','Gauss','mathematics');
+
+
+
+# Сделал выборку из таблиц students и classroom. Выборка отображает
+# name, lastname, учебный предмет, и номер аудитории.
+
+SELECT `students`.`name`, `students`.`lastname`, `students`.`academic subject`,
+`classroom number` FROM `classroom`
+JOIN `students` ON `classroom`.`student group` = `students`.`student group`;
+
+# Сделал выборку из таблиц students и teachers с помощью LEFt JOIN.
+# Использовал USING (по нему происходит связывание двух таблиц)
+SELECT * FROM `students`
+LEFt JOIN `teachers` USING (`academic subject`);
+
+# Сделал выборку из таблиц students и teachers с помощью LEFt JOIN.
+# Использовал USING (по нему происходит связывание двух таблиц)
+SELECT * FROM `teachers`
+RIGHT JOIN  `classroom` USING (`academic subject`);
+
+# Сделал выборку из таблиц classroom и teachers с помощью LEFt JOIN.
+# Использовал USING (по нему происходит связывание двух таблиц)
+# Выборка отображает name, lastname,
+# номер аудитории(в зависимости от предмета), группу студентов и этаж
+SELECT `name`,`lastname`, `classroom`.`classroom number`,
+`classroom`.`student group`, `classroom`.`floor`
+FROM `teachers`
+LEFT JOIN  `classroom` USING (`academic subject`);
+
+# Сделал выборку из таблиц students и students on the course.
+# Выборка отображает name и assessment из двух разных таблиц
+SELECT `students`.`name`, `students on the course`.`assessment` FROM `students`
+RIGHT JOIN `students on the course`
+ON `students`.`id` = `students on the course`.`id`;
+
+# Количество студентов на курсе
+SELECT COUNT(`id`) FROM `students on the course`;
+
+# Выборка показывает lastname студентов с assessment = 9
+SELECT `assessment`, `lastname` FROM `students on the course`
+WHERE `assessment` = 9;
+
+# Средняя, максимальная, минимальная оценка среди студентов
+SELECT AVG(`assessment`) FROM `students on the course`;
+SELECT MAX(`assessment`) FROM `students on the course`;
+SELECT MIN(`assessment`) FROM `students on the course`;
+
+# Сделал выборку
+# Использовал  AS для создания псевдонима
+# Использовал  CONCAT для объединить значения из нескольких столбцов
+# Использовал GROUP BY для группировки
+# Использовал ORDER BY для сортировки
+# Для MAX аналогично
+SELECT MIN(`assessment`) AS `min assessment` , CONCAT(`lastname` ,',', `name`)
+AS `full name`
+FROM `students on the course`
+GROUP BY `full name`
+ORDER BY `min assessment`;
+
+SELECT MAX(`assessment`) AS `max assessment` , CONCAT(lastname ,',', `name`)
+AS `full name`
+FROM `students on the course`
+GROUP BY `full name`
+ORDER BY `max assessment`;
+
+# Сделал выборку
+# Дя просмотра assessment по условиям сравнения и булевого оператора
+SELECT `assessment`, `name` FROM `students on the course`
+WHERE  `assessment` < 9 AND `assessment` > 5;
+
+# Сделал выборку отличников
+# Использовал  AS для создания псевдонима
+# Использовал подзапрос который вложен в условие WHERE
+SELECT CONCAT(`lastname`,'-',`student group`)
+AS `excellent student`,`assessment`
+FROM `students on the course`
+WHERE `assessment` = (SELECT MAX(`assessment`) FROM `students on the course`);
+
+# Сделал выборку состоящею из наименьших оценок
+# Использовал  AS для создания псевдонима
+# Использовал подзапрос который вложен в условие WHERE
+SELECT CONCAT(`lastname`,'-',`student group`)
+AS `student - group`, `assessment`
+FROM `students on the course`
+WHERE `assessment` = (SELECT MIN(`assessment`) FROM `students on the course`);
+
+# Сделал выборку со
+# Использовал  LIKE для определения name, которые начинаются на 'I'
+SELECT `name`, `lastname` FROM `students on the course`
+WHERE `name` LIKE 'I%';
