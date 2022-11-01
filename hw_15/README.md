@@ -1,0 +1,1 @@
+# Example of a multiplication by zero project
