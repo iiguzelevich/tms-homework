@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if title -%}
+        <title>My site {{title}}</title>
+    {% else %}
+        <title>My site</title>
+    {% endif %}
+        <link type="text/css"
+          href="{{ url_for('static', filename='/css/style.css')}}"
+          rel="stylesheet" />
+</head>
+<body>
+{% if title -%}
+<h1>My site {{title}}</h1>
+{% else -%}
+<h1>My site information</h1>
+{% endif %}
+</body>
+</html>
