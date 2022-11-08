@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Chilanka;
+    font-size: 30px;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    background: rgba(255, 255, 255, 0) url('../images/back_fon.jpg') repeat;
+}
+
+body a{
+        color: #000000;
+        margin: 18px 40px 0 50px;
+        font-size: 30px;
+}
+
+
+ul.menu {
+    list-style: none;
+    height: 50px;
+    margin:0;
+    padding: 0;
+    color: #000000;
+    font-size: 30px;
+    overflow: hidden;
+}
+ul.menu li {
+    float: left;
+    margin: 18px 40px 0 50px;
+}
+
+ul.menu li a {
+    color: #000000;
+}
+
+div.inf * {
+    font-size: 30px;
+    list-style: inside;
+    margin: 18px 40px 0 50px;
+}
+
+div.inf p {
+    font-size: 30px;
+    margin: 18px 40px 0 50px;
+}
