@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        {% if title -%}
+        <title>My site {{title}}</title>
+    {% else %}
+        <title>My site</title>
+    {% endif %}
+    <link type="text/css"
+          href="{{ url_for('static', filename='/css/style.css')}}"
+          rel="stylesheet" />
+</head>
+<body>
+<ul class="mainmenu">
+<li><a href="{{ url_for('index') }}">Main</a></li>
+</ul>
+<div class="inf">
+    <h1> Information about the site </h1>
+    <p>This site was created for educational purposes</p>
+    <h2>The site has functions:
+    <ul>
+        <li>Shows the list of students</li>
+        <li>Shows the list of teachers</li>
+        <li>Click on links</li>
+        <li>If the error is 404, the site may redirect to the main page</li>
+        <li>You can write to the creator of the site</li>
+    </ul>
+    </h2>
+</div>
+
+</body>
+</html>
