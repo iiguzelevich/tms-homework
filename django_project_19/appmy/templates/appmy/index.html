@@ -1,0 +1,15 @@
+{% extends 'appmy/base.html' %}
+
+{% block content %}
+<ul class="list-articles">
+	{% for p in people%}
+			<li><h2>{{p.first_name}}  {{p.last_name}}</h2>
+				<p>{{p.time_create}}</p>
+				<p>{{p.people_profession}}</p>
+				{{p.article|linebreaks|truncatewords:50}}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="#">Read the post</a></p>
+			</li>
+	{% endfor %}
+</ul>
+{% endblock %}

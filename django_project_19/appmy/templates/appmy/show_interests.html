@@ -1,0 +1,13 @@
+{% extends 'appmy/base.html' %}
+
+{% block content %}
+<h1 class="list-articles">
+    <p>Information about interests will appear in this section soon</p>
+</h1>
+<ul class="list-articles">
+	{% for p in professions%}
+			<li><h2>{{p.profession_title}}</h2>
+			</li>
+</ul>
+{% endfor %}
+{% endblock %}
