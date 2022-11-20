@@ -1,0 +1,11 @@
+{% extends 'appmy/base.html' %}
+{% block content %}
+<ul class="list-articles">
+	{% for a in author%}
+	<li><h2>{{a.first_name}} {{a.last_name}}</h2>
+	<p>{{a.biography}}</p>
+
+			</li>
+	{% endfor %}
+</ul>
+{% endblock %}
