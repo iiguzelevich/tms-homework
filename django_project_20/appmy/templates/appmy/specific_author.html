@@ -2,10 +2,11 @@
 {% block content %}
 <ul class="list-articles">
 	{% for a in author%}
-	<li><h2>{{a.first_name}} {{a.last_name}}</h2>
+	<li><h2>Author: {{a.first_name}} {{a.last_name}}</h2>
+	<p>Biography:</p>
 	<p>{{a.biography}}</p>
-
-			</li>
+	<p class="link-read-post"><a href="{{a.get_url_show_author_books}}">Show author's books</a></p>
+	</li>
 	{% endfor %}
 </ul>
 {% endblock %}

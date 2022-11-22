@@ -75,6 +75,15 @@ class Author(models.Model):
     def get_absolute_url(self):
         return reverse('specific_author', kwargs={'specific_slug': self.slug})
 
+    def get_url_show_author_books(self):
+        return reverse(
+            'show_author_books',
+            kwargs={
+                'author_books_id': self.id,
+                'specific_slug': self.slug
+            }
+        )
+
 
 class Genre(models.Model):
     name = models.CharField(

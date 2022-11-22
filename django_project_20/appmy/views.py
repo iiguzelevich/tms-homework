@@ -36,7 +36,7 @@ def feedback(request):
     context = {
         'mainmenu': main_menu,
     }
-    return render(request, 'appmy/feedback.html',  context=context)
+    return render(request, 'appmy/feedback.html', context=context)
 
 
 def login(request):
@@ -96,3 +96,29 @@ def specific_author(request, specific_slug, ):
         'mainmenu': main_menu,
     }
     return render(request, 'appmy/specific_author.html', context=context)
+
+
+def show_author_books(request, author_books_id, specific_slug):
+    author = Author.objects.filter(slug=specific_slug)
+    genre = Genre.objects.all()
+    books = Book.objects.filter(author_id=author_books_id)
+    context = {
+        'books': books,
+        'author': author,
+        'genre': genre,
+        'mainmenu': main_menu,
+    }
+    return render(request, 'appmy/show_author_books.html', context=context)
+
+
+def show_genres(request):
+    book = Book.objects.all()
+    author = Author.objects.all()
+    genre = Genre.objects.all()
+    context = {
+        'books': book,
+        'author': author,
+        'genre': genre,
+        'mainmenu': main_menu,
+    }
+    return render(request, 'appmy/show_genres.html', context=context)

@@ -1,12 +1,17 @@
 {% extends 'appmy/base.html' %}
 {% block content %}
 <ul class="list-articles">
+		{% for a in author%}
+
+	<li><h2>Author: {{a.first_name}} {{a.last_name}}</h2>
+			{% endfor %}
+
 	{% for b in books%}
-	<li><h2>Title of the book: {{b.title_book}}</h2>
-		<p>Author of the book: {{b.author}}</p>
+	<li><h3>Title of the book: {{b.title_book}}</h3>
 		<p>Genre of the book: {{b.genre}}</p>
 		<p>Description of the book:</p>
 		<p>{{b.book_description}}</p>
+	</li>
 	{% endfor %}
 </ul>
 {% endblock %}
