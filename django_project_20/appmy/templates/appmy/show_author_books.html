@@ -1,16 +1,14 @@
 {% extends 'appmy/base.html' %}
 {% block content %}
+<h2>Author: {{author}}</h2>
 <ul class="list-articles">
-		{% for a in author%}
-
-	<li><h2>Author: {{a.first_name}} {{a.last_name}}</h2>
-			{% endfor %}
-
 	{% for b in books%}
-	<li><h3>Title of the book: {{b.title_book}}</h3>
+	<li><h4>Title of the book: {{b.title_book}}</h4>
 		<p>Genre of the book: {{b.genre}}</p>
+		<p>Year of publication: {{b.year_publication}}</p>
 		<p>Description of the book:</p>
-		<p>{{b.book_description}}</p>
+		<p>{{b.book_description|linebreaks|truncatewords:50}}</p>
+		<p class="link-read-post"><a href="{{ b.get_absolute_url }}">See more details</a></p>
 	</li>
 	{% endfor %}
 </ul>
