@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
 
+from django.views.generic import ListView
+
 from .models import Book
 from .models import Author
 from .models import Genre
@@ -12,17 +14,16 @@ main_menu = [
 ]
 
 
-def index(request):
-    book = Book.objects.all()
-    author = Author.objects.all()
-    genre = Genre.objects.all()
-    context = {
-        'book': book,
-        'author': author,
-        'genre': genre,
-        'mainmenu': main_menu,
-    }
-    return render(request, 'appmy/index.html', context=context)
+class Index(ListView):
+    model = Book
+    template_name = 'appmy/index.html'
+    context_object_name = 'posts'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mainmenu'] = main_menu
+        context['title'] = 'Main page'
+        return context
 
 
 def about(request):
@@ -55,19 +56,21 @@ def show_books(request):
         'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'title': 'Books',
     }
     return render(request, 'appmy/show_books.html', context=context)
 
 
-def specific_book(request, specific_id):
-    books = Book.objects.filter(pk=specific_id)
-    author = Author.objects.all()
-    genre = Genre.objects.all()
+def specific_book(request, specific_slug):
+    book = Book.objects.get(slug=specific_slug)
+    author = Author.objects.get(id=book.author_id)
+    genre = Genre.objects.get(id=book.genre_id)
     context = {
-        'books': books,
+        'book': book,
         'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'title': f'Book: {book}',
     }
     return render(request, 'appmy/specific_book.html', context=context)
 
@@ -81,25 +84,27 @@ def show_authors(request):
         'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'title': 'Authors',
     }
     return render(request, 'appmy/show_author.html', context=context)
 
 
-def specific_author(request, specific_slug, ):
+def specific_author(request, author_slug, ):
+    author = Author.objects.get(slug=author_slug)
     books = Book.objects.all()
-    author = Author.objects.filter(slug=specific_slug)
     genre = Genre.objects.all()
     context = {
-        'books': books,
-        'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'specific_author': author,
+        'books': books,
+        'title': f'Author: {author}',
     }
     return render(request, 'appmy/specific_author.html', context=context)
 
 
-def show_author_books(request, author_books_id, specific_slug):
-    author = Author.objects.filter(slug=specific_slug)
+def show_author_books(request, author_books_id, author_slug):
+    author = Author.objects.get(slug=author_slug)
     genre = Genre.objects.all()
     books = Book.objects.filter(author_id=author_books_id)
     context = {
@@ -107,6 +112,7 @@ def show_author_books(request, author_books_id, specific_slug):
         'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'title': f'Books written by {author}',
     }
     return render(request, 'appmy/show_author_books.html', context=context)
 
@@ -120,5 +126,19 @@ def show_genres(request):
         'author': author,
         'genre': genre,
         'mainmenu': main_menu,
+        'title': 'Genres',
+
     }
     return render(request, 'appmy/show_genres.html', context=context)
+
+
+def specific_genre(request, genre_slug):
+    genre = Genre.objects.get(slug=genre_slug)
+    books = Book.objects.all()
+    context = {
+        'books': books,
+        'genre': genre,
+        'mainmenu': main_menu,
+        'title': f'Genre:{genre}',
+    }
+    return render(request, 'appmy/specific_genre.html', context=context)

@@ -1,12 +1,9 @@
 {% extends 'appmy/base.html' %}
 {% block content %}
-<ul class="list-articles">
-	{% for b in books%}
-	<li><h2>Title of the book: {{b.title_book}}</h2>
-		<p>Author of the book: {{b.author}}</p>
-		<p>Genre of the book: {{b.genre}}</p>
+		<h2>Title of the book: {{book}}</h2>
+		<p>Author of the book: <a href="{{ author.get_absolute_url}}"> {{book.author}}</a></p>
+		<p>Genre of the book: <a href="{{ genre.get_absolute_url}}"> {{book.genre}}</a></p>
+		<p>Year of publication: {{book.year_publication}}</p>
 		<p>Description of the book:</p>
-		<p>{{b.book_description}}</p>
-	{% endfor %}
-</ul>
+		<p>{{book.book_description}}</p>
 {% endblock %}

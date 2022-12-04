@@ -46,7 +46,7 @@ class Book(models.Model):
         return self.title_book
 
     def get_absolute_url(self):
-        return reverse('specific_book', kwargs={'specific_id': self.pk})
+        return reverse('specific_book', kwargs={'specific_slug': self.slug})
 
 
 class Author(models.Model):
@@ -68,19 +68,25 @@ class Author(models.Model):
         db_index=True,
         verbose_name='URL'
     )
+    photo = models.ImageField(
+        upload_to='photos/',
+        verbose_name='photo',
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
 
     def get_absolute_url(self):
-        return reverse('specific_author', kwargs={'specific_slug': self.slug})
+        return reverse('specific_author', kwargs={'author_slug': self.slug})
 
     def get_url_show_author_books(self):
         return reverse(
             'show_author_books',
             kwargs={
                 'author_books_id': self.id,
-                'specific_slug': self.slug
+                'author_slug': self.slug
             }
         )
 
@@ -91,5 +97,15 @@ class Genre(models.Model):
         verbose_name='Genre of the book'
     )
 
+    slug = models.SlugField(
+        max_length=255,
+        unique=True,
+        db_index=True,
+        verbose_name='URL'
+    )
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('specific_genre', kwargs={'genre_slug': self.slug})

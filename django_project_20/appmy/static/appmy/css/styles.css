@@ -32,6 +32,18 @@ ul.list-articles {
 ul.list-articles li {
 	border-bottom: 1px solid #0a6565;
 }
+/*______________________list-author___*/
+
+ul.list-author {
+	list-style: disc ;
+	margin: 0;
+	padding: 0;
+}
+ul.list-author li {
+	margin: 0 0 0 20px;
+}
+
+/*______________________list-author___*/
 
 .table-page {
 	width: 100%;
@@ -105,7 +117,8 @@ ul.mainmenu li a {
 }
 
 .content-text {
-	margin: 60px 0 0 30px;
+	/*margin: 60px 0 0 30px;*/
+	margin: 0 0 0 10px;
 	color: #000;
 	font-size: 20px;
 	font-family: Light;
