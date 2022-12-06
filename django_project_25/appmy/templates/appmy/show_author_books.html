@@ -1,0 +1,17 @@
+{% extends 'appmy/base.html' %}
+{% block content %}
+<h2>Author: {{author}}</h2>
+<ul class="list-articles">
+	{% for b in books%}
+		{% if b.author_id == author.id %}
+	<li><h4>Title of the book: {{b.title_book}}</h4>
+		<p>Genre of the book: {{b.genre}}</p>
+		<p>Year of publication: {{b.year_publication}}</p>
+		<p>Description of the book:</p>
+		<p>{{b.book_description|linebreaks|truncatewords:50}}</p>
+		<p class="link-read-post"><a href="{{ b.get_absolute_url }}">See more details</a></p>
+	</li>
+		{% endif %}
+	{% endfor %}
+</ul>
+{% endblock %}

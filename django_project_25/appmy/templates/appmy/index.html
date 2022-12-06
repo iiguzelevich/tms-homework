@@ -1,0 +1,26 @@
+{% extends 'appmy/base.html' %}
+
+{% block content %}
+<h2 class="list-articles">Some books</h2>
+	<p>
+		Books are presented on this site.
+		You can also read information about them.
+	</p>
+	<p>
+		You can also read information about them.
+		And see information about the authors of these books
+	</p>
+<ul class="list-articles">
+	{% for p in posts%}
+	<li><h2>{{p.information}}</h2>
+			</li>
+	{% endfor %}
+</ul>
+<ul>
+	{% for p in paginator.page_range %}
+	<li>
+		<a href="?page={{p}}">{{p}}</a>
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
