@@ -1,0 +1,11 @@
+{% extends 'appmy/base.html' %}
+
+{% block content %}
+<!--<h1 class="list-articles">{{title}}</h1>-->
+<form action="{% url 'add_post' %}" method="post">
+    {% csrf_token %}
+    <div>{{form.non_fields_errors}}</div>
+    {{form.as_p}}
+    <button type="submit">Add</button>
+</form>
+{% endblock %}
