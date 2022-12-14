@@ -1,0 +1,9 @@
+{% extends 'appmy/base.html' %}
+{% block content %}
+		<h2>Title of the book: {{book}}</h2>
+		<p>Author of the book: <a href="{{ book.author.get_absolute_url}}"> {{book.author}}</a></p>
+		<p>Genre of the book: <a href="{{ book.genre.get_absolute_url}}"> {{book.genre}}</a></p>
+		<p>Year of publication: {{book.year_publication}}</p>
+		<p>Description of the book:</p>
+		<p>{{book.book_description}}</p>
+{% endblock %}

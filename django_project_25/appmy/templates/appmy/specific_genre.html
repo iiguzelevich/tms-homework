@@ -1,0 +1,15 @@
+{% extends 'appmy/base.html' %}
+{% block content %}
+<h2>{{genre}}</h2>
+<h3>Books:</h3>
+<ul class="list-author">
+	{% for b in books%}
+			{% if b.genre_id == genre.id %}
+			<li>
+			<a href="{{ b.get_absolute_url }}">{{b.title_book|linebreaks}}</a>
+			</li>
+			{% endif %}
+	{% endfor %}
+</ul>
+
+{% endblock %}
