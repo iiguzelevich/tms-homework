@@ -117,7 +117,6 @@ ul.mainmenu li a {
 }
 
 .content-text {
-	/*margin: 60px 0 0 30px;*/
 	margin: 0 0 0 10px;
 	color: #000;
 	font-size: 20px;
@@ -137,4 +136,38 @@ ul.mainmenu li a {
 #footer a {
 	text-decoration: underline;
 	color: #aaa;
+}
+img {
+    border-radius: 50px;
+    width: auto;
+    height: 500px;
+}
+
+img.author_scale {
+    transition: 1s;
+   }
+
+img.author_scale:hover {
+    transform: scale(1.2);
+   }
+
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: #0a6565;
+    float: left;
+    padding: 10px 10px;
+    text-decoration: none;
+    transition: background-color .5s;
+    margin: 0 3px;
+	border-radius: 50%;
+	font-size: 25px;
+}
+
+.pagination a:hover:not(.active) {background-color: rgba(128, 120, 120, 0.41);}
+
+.center {
+	text-align: center;
 }
