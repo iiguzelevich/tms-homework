@@ -3,6 +3,8 @@ from .models import Book
 from .models import Author
 from .models import Genre
 from .models import Post
+from authentication.models import User
+
 
 from django.utils.safestring import mark_safe
 
@@ -52,3 +54,4 @@ admin.site.register(Book, BookAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(User)
