@@ -2,8 +2,9 @@ from django.contrib import admin
 from .models import Book
 from .models import Author
 from .models import Genre
-from .models import Users
 from .models import Post
+from authentication.models import User
+
 
 from django.utils.safestring import mark_safe
 
@@ -39,39 +40,18 @@ class GenreAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('name',)}
 
 
-class UsersAdmin(admin.ModelAdmin):
-    list_display = (
-        'first_name', 'last_name', 'get_html_photo', '__str__',
-    )
-    list_display_links = (
-        'first_name', 'last_name',
-    )
-
-    search_fields = (
-        'first_name', 'last_name',
-    )
-    readonly_fields = (
-        'time_create', 'time_update'
-    )
-
-    def get_html_photo(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width=50>')
-
-    get_html_photo.short_description = 'photo'
-
-
 class PostAdmin(admin.ModelAdmin):
     list_display = (
-        'information', 'creator',
+        'id', 'information', 'post_book', 'creator',
+        'time_create', 'time_update',
     )
     search_fields = (
-        'information', 'creator',
+        'information', 'post_book', 'creator', 'time_create', 'time_update',
     )
 
 
 admin.site.register(Book, BookAdmin)
 admin.site.register(Author, AuthorAdmin)
 admin.site.register(Genre, GenreAdmin)
-admin.site.register(Users, UsersAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(User)

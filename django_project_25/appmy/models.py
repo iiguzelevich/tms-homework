@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
-
+# from django.contrib.auth.models import User
+from authentication.models import User
 
 class Book(models.Model):
     class Meta:
@@ -111,33 +112,6 @@ class Genre(models.Model):
         return reverse('specific_genre', kwargs={'genre_slug': self.slug})
 
 
-class Users(models.Model):
-    class Meta:
-        verbose_name = 'User'
-        verbose_name_plural = 'Users'
-
-    first_name = models.CharField(
-        max_length=100,
-        verbose_name="user's name",
-    )
-    last_name = models.CharField(
-        max_length=100,
-        verbose_name="user's surname",
-    )
-    photo = models.ImageField(
-        upload_to='photos/',
-        verbose_name='photo',
-        blank=True,
-        null=True,
-    )
-
-    time_create = models.DateTimeField(auto_now_add=True)
-    time_update = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.first_name} {self.last_name}'
-
-
 class Post(models.Model):
     class Meta:
         verbose_name = 'Post'
@@ -150,9 +124,14 @@ class Post(models.Model):
     time_create = models.DateTimeField(
         auto_now_add=True
     )
+
+    time_update = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Time update"
+    )
     creator = models.ForeignKey(
-        'Users',
-        on_delete=models.PROTECT,
+        User,
+        on_delete=models.CASCADE,
         null=True,
         blank=False,
     )

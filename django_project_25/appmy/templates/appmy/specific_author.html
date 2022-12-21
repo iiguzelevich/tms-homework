@@ -2,7 +2,7 @@
 {% block content %}
 <h2>{{specific_author}}</h2>
 {% if specific_author.photo %}
-<p><img src="{{specific_author.photo.url}}" width="auto" height="500" alt="{{specific_author}}"></p>
+<p><img class="author_scale" src="{{specific_author.photo.url}}" width="auto" height="500" alt="{{specific_author}}"></p>
 {% endif %}
 <p>{{specific_author.biography}}</p>
 <h3>Books:</h3>
