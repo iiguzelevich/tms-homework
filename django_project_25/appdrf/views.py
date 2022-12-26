@@ -18,6 +18,8 @@ from rest_framework import filters
 from .paginations import StandardPagination
 from .paginations import BasePagination
 
+from rest_framework.permissions import IsAuthenticated
+
 
 class BooksList(ListAPIView):
     queryset = Book.objects.all()
@@ -35,6 +37,7 @@ class AuthorsList(ListAPIView):
     search_fields = ['first_name', 'last_name']
     serializer_class = AuthorsSerializer
     pagination_class = StandardPagination
+    permission_classes = [IsAuthenticated]
 
 
 class AuthorDetail(RetrieveAPIView):
