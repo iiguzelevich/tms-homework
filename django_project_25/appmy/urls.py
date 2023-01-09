@@ -16,8 +16,10 @@ from .views import AddPost
 from .views import RegisterUser
 from .views import LoginUser
 
+from django.views.decorators.cache import cache_page
+
 urlpatterns = [
-    path('', Index.as_view(), name='home'),
+    path('', cache_page(60)(Index.as_view()), name='home'),
     path('about/', about, name='about'),
     path('feedback/', feedback, name='feedback'),
     path('addpost/', AddPost.as_view(), name='add_post'),
@@ -37,7 +39,7 @@ urlpatterns = [
     ),
     path(
         'author/<slug:author_slug>/<int:author_books_id>/',
-        ShowAuthorBooks.as_view(), name='show_author_books'
+        cache_page(60)(ShowAuthorBooks.as_view()), name='show_author_books'
     ),
     path('genres/', ShowGenres.as_view(), name='show_genres'),
     path(
