@@ -49,7 +49,6 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'rest_framework_simplejwt',
-
 ]
 
 MIDDLEWARE = [
@@ -61,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -193,8 +191,17 @@ INTERNAL_IPS = [
 ]
 
 CACHES = {
-    'default': {
+    'default_1': {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
+    },
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': os.getenv('REDIS_LOCATION_CACHES'),
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
+
+REDIS_LOCATION = os.getenv('REDIS_LOCATION')

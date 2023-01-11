@@ -25,6 +25,8 @@ from .utils import main_menu
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from django.views.decorators.cache import cache_page
+
 
 class Index(DataMixin, ListView):
     paginate_by = 2
@@ -39,6 +41,7 @@ class Index(DataMixin, ListView):
         return context
 
 
+@cache_page(600, cache='default_1')
 def about(request):
     context = {
         'main_menu': main_menu,

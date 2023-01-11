@@ -26,8 +26,10 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
-    path('books/', ShowBooks.as_view(), name='show_books'),
     path(
+        'books/', cache_page(60, cache='default_1')(ShowBooks.as_view()),
+        name='show_books'
+    ),    path(
         'books/<slug:specific_slug>/',
         ShowSpecificBook.as_view(),
         name='specific_book'
@@ -39,7 +41,8 @@ urlpatterns = [
     ),
     path(
         'author/<slug:author_slug>/<int:author_books_id>/',
-        cache_page(60)(ShowAuthorBooks.as_view()), name='show_author_books'
+        cache_page(60, cache='default')(ShowAuthorBooks.as_view()),
+        name='show_author_books'
     ),
     path('genres/', ShowGenres.as_view(), name='show_genres'),
     path(
