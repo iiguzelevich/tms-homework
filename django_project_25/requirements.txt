@@ -7,3 +7,4 @@ drf-yasg==1.21.4
 django-debug-toolbar==3.8.1
 celery==5.2.7
 redis==4.4.1
+django-redis==5.2.0
