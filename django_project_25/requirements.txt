@@ -4,4 +4,6 @@ mysqlclient==2.1.1
 Pillow==9.3.0
 djangorestframework==3.14.0
 drf-yasg==1.21.4
-django_debug_toolbar==3.8.1
+django-debug-toolbar==3.8.1
+celery==5.2.7
+redis==4.4.1

@@ -196,3 +196,5 @@ CACHES = {
         'LOCATION': os.path.join(BASE_DIR, 'django_cache'),
     }
 }
+
+REDIS_LOCATION = os.getenv('REDIS_LOCATION')
